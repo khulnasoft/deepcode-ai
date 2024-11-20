@@ -1,18 +1,8 @@
-<p align="center">
-<img width="1000px" alt="DeepCode Coder" src="pictures/logo.png">
-</p>
-<p align="center">
-  <a href="https://huggingface.co/papers/2401.14196"><b>Paper Link</b>👁️</a>
-</p>
-<hr>
+## DeepCode AI
 
 ### 1. Introduction of DeepCode Coder
 
 DeepCode Coder is composed of a series of code language models, each trained from scratch on 2T tokens, with a composition of 87% code and 13% natural language in both English and Chinese. We provide various sizes of the code model, ranging from 1B to 33B versions. Each model is pre-trained on project-level code corpus by employing a window size of 16K and an extra fill-in-the-blank task, to support project-level code completion and infilling. For coding capabilities, DeepCode Coder achieves state-of-the-art performance among open-source code models on multiple programming languages and various benchmarks.
-
-<p align="center">
-<img src="pictures/result.png" alt="result" width="70%">
-</p>
 
 - **Massive Training Data**: Trained from scratch on 2T tokens, including 87% code and 13% linguistic data in both English and Chinese languages.
 
@@ -31,10 +21,6 @@ DeepCode Coder is composed of a series of code language models, each trained fro
 We evaluate DeepCode Coder on various coding-related benchmarks.
 Only `pass@1` results on HumanEval (Python and Multilingual), MBPP, and DS-1000 are reported here:
 
-<p align="center">
-<img src="pictures/table.png" alt="table" width="70%">
-</p>
-
 The result shows that DeepCode-AI-Base-33B significantly outperforms existing open-source code LLMs. Compared with CodeLlama-34B, it leads by 7.9%, 9.3%, 10.8% and 5.9% respectively on HumanEval Python, HumanEval Multilingual, MBPP and DS-1000.
 Surprisingly, our DeepCode-AI-Base-7B reaches the performance of CodeLlama-34B.
 The DeepCode-AI-Instruct-33B model after instruction tuning outperforms GPT35-turbo on HumanEval and achieves comparable results with GPT35-turbo on MBPP.
@@ -50,15 +36,12 @@ More evaluation details can be found in the [Detailed Evaluation](#6-detailed-ev
 - Step 3: Concatenating dependent files to form a single example and employ repo-level minhash for deduplication.
 - Step 4: Further filtering out low-quality code, such as codes with syntax errors or poor readability.
 
-<img src="pictures/data_clean.png" alt="data_creation" width="100%">
-
 #### Model Training
 
 - Step 1: Initially pre-trained with a dataset consisting of 87% code, 10% code-related language (Github Markdown and StackExchange), and 3% non-code-related Chinese language. Models are pre-trained using 1.8T tokens and a 4K window size in this step.
 - Step 2: Further Pre-training using an extended 16K window size on an additional 200B tokens, resulting in foundational models (**DeepCode-AI-Base**).
 - Step 3: Instruction Fine-tuning on 2B tokens of instruction data, resulting in instruction-tuned models (**DeepCode-AI-Instruct**).
 
-<img src="pictures/model_pretraining.png" alt="model_pretraining" width="100%">
 
 ### 4. How to Use
 
@@ -280,7 +263,6 @@ print(tokenizer.decode(outputs[0]))
 
 In the following scenario, the DeepCode-AI-6.7B model effectively calls a class **IrisClassifier** and its member function from the `model.py` file, and also utilizes functions from the `utils.py` file, to correctly complete the **main** function in the `main.py` file for model training and evaluation.
 
-![Completion GIF](pictures/completion_demo.gif)
 
 ### 5. How to Fine-tune DeepCode-AI
 
@@ -330,24 +312,6 @@ cd finetune && deepspeed finetune_deepcodeai.py \
 ### 6. Detailed Evaluation Results
 
 The reproducible code for the following evaluation results can be found in the [Evaluation](https://github.com/deepcode-ai/deepcode-ai/tree/main/Evaluation) directory.
-
-#### 1) Multilingual HumanEval Benchmark
-
-![HumanEval](pictures/HumanEval.png)
-
-#### 2) MBPP Benchmark
-
-<img src="pictures/MBPP.png" alt="MBPP" width="40%">
-
-#### 3) DS-1000 Benchmark
-
-![DS-1000](pictures/DS-1000.png)
-
-#### 4) Program-Aid Math Reasoning Benchmark
-
-![Math](pictures/Math.png)
-
-### Inference with vLLM
 
 You can also employ [vLLM](https://github.com/vllm-project/vllm) for high-throughput inference.
 
@@ -456,7 +420,3 @@ See the [LICENSE-CODE](LICENSE-CODE) and [LICENSE-MODEL](LICENSE-MODEL) for more
   url = {https://arxiv.org/abs/2401.14196},
 }
 ```
-
-### 11. Contact
-
-If you have any questions, please raise an issue or contact us at [service@deepcode.com](mailto:service@deepcode.com).
